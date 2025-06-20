@@ -9,6 +9,7 @@ class Pedido{
         int id;
         list<Item> itens;
 
+        Pedido();
         void pedidosTotais() const;
         float valorTotal() const;
         void adicionarItem(const Item& item);
