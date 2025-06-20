@@ -9,12 +9,19 @@ using namespace std;
 class Mesa{
     public:
         int id;
-        bool status = true;
+        bool status;
         list<Pedido> pedidos;
-        float valorTotalMesa();
+
+        Mesa(int id);
+
+        void descricao() const;
+
+        float valorTotalMesa() const;
 
         void adicionarPedido(Pedido pedidoNovo);
 
         void encerrarMesa();
+
+        void exibirPedidos() const;
 
 };
