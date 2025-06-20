@@ -16,13 +16,13 @@ all: $(TARGET)
 
 # Linka o executável
 $(TARGET): $(OBJS)
-    $(CXX) $^ -o $@
+	$(CXX) $^ -o $@
 
 # Regra para compilar .cpp em .o no build/
 # A receita cria a pasta build/ para cada .o, se precisar
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
-    @mkdir -p $(dir $@)
-    $(CXX) $(CXXFLAGS) -c $< -o $@
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-    rm -rf $(BUILD_DIR) $(TARGET)
+	rm -rf $(BUILD_DIR) $(TARGET)

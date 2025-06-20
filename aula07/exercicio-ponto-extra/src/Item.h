@@ -8,7 +8,6 @@ class Item{
         int id;
         string nome;
         float valor;
-        int quantidade;
         
-        void descricao();
+        void descricao() const;
 };
