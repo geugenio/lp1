@@ -3,8 +3,35 @@
 #include "Pedido.h"
 #include "Item.h"
 #include <vector>
+#include <string>
+
 using namespace std;
 
+int lerNum(){
+    string in;
+    int num;
+
+    while(true){
+        getline(cin, in);
+        try{
+            num = stoi(in);
+            break;
+        } catch(const exception& e){
+            cout << "Entrada invalida! Insira um numero." << endl;
+        }
+    }
+}
+
+int lerNumIntervalo(int min, int max){
+    int num;
+    do {
+        num = lerNum();
+        if (num < min || num > max){
+            cout << "Entrada invalida, digite um numero dentro do intervalo " << "(" << min << " a " << max << ")." << endl;
+        } 
+    }while(num < min || num > max);
+    return num;
+}
 
 void menu(){
     cout << "+----------------------------+" << endl;
@@ -47,17 +74,18 @@ void relatorioFinal(const vector<Mesa> &mesas, const vector<Item> &itens){
             }
         }
     }
-
-    cout << "Relatorio FINAL DE VENDAS" << endl;
+    cout << "\n+-----------------------------------------------+" << endl;
+    cout << "|           RELATORIO FINAL DE VENDAS           |" << endl;
+    cout << "+-----------------------------------------------+" << endl;
 
     for (const auto &item : itens){
         int quantidade = contagem[item.id];
         float total = quantidade * item.valor;
         if (quantidade > 0){
-            cout << item.nome << "\tR$ " << item.valor << "\t" << quantidade << "\tR$ " << total << endl;
+            cout << "\tNome: "<<item.nome << "\tValor: R$" << item.valor << "\tQtd: " << quantidade << "\tValor total: R$ " << total << endl;
         }
     }
-    cout << "TOTAL GERAL VENDIDO: R$ " << totalGeral << endl;
+    cout << "\nTOTAL GERAL VENDIDO: R$ " << totalGeral  << endl;
 }
 
 int main(){
@@ -83,8 +111,9 @@ int main(){
     do{
         
         menu();
-        cout << "Escolha a opcao: ";
-        cin >> opc;
+        cout << "Escolha a opcao: "; 
+        opc = lerNumIntervalo(1, 4);
+
         cout << endl;
         switch (opc){
             case 1:{ //1 - Mostrar cardapio
@@ -95,20 +124,13 @@ int main(){
             case 2:{ //2 - Selecionar mesa
                 cout << "Selecione uma mesa (1 a 3): ";
                 int idMesa;
-                cin >> idMesa;
-                cout << endl;
+                idMesa = lerNumIntervalo(1, 3);
                 idMesa -= 1; // indice 0
-                if (idMesa < 0 || idMesa >= 3){
-                    cout << "Mesa invalida!" << endl;
-                    break;
-                }
-
-                cout << "Mesa " << idMesa << " selecionada!" << endl;
-
+                cout << "Mesa " << idMesa+1 << " selecionada!" << endl;
                 menu2(); // Abre o segundo menú
                 int opc2;
                 cout << "Escolha a opcao: ";
-                cin >> opc2;
+                opc2 = lerNumIntervalo(1, 3);
                 cout << endl;
                 Pedido pedidoNovo;
                 // MENU 2
@@ -121,10 +143,12 @@ int main(){
                             cout << "Adicionando pedido a mesa " << idMesa + 1 << endl;
 
                             mostrarCardapio(itens);
-                            cout << "Digite o ID do item que deseja adicionar ao pedido (0 para finalizar):" << endl;
+                            
                             int idItem;
+                            cout << "Digite o ID do item que deseja adicionar ao pedido (0 para finalizar):" << endl;
                             while (true){
-                                cin >> idItem;
+                                idItem = lerNumIntervalo(1, 9);
+
                                 if (idItem == 0){
                                     if (!pedidoNovo.itens.empty()){
                                         mesas[idMesa].adicionarPedido(pedidoNovo);
