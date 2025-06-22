@@ -7,6 +7,7 @@
 
 using namespace std;
 
+//Função que ajuda a ler um número sem quebrar ao inserir letras ou caracteres indevidos
 int lerNum(){
     string in;
     int num;
@@ -20,6 +21,7 @@ int lerNum(){
             cout << "Entrada invalida! Insira um numero." << endl;
         }
     }
+    return num;
 }
 
 int lerNumIntervalo(int min, int max){
@@ -55,7 +57,7 @@ void menu2(){
 }
 
 void mostrarCardapio(const vector<Item> &itens){
-    cout << "\n=== CARDÁPIO ===" << endl;
+    cout << "\n=================| CARDAPIO |=================" << endl;
     for (const auto &item : itens){
         item.descricao();
     }
@@ -74,17 +76,23 @@ void relatorioFinal(const vector<Mesa> &mesas, const vector<Item> &itens){
             }
         }
     }
-    cout << "\n+-----------------------------------------------+" << endl;
-    cout << "|           RELATORIO FINAL DE VENDAS           |" << endl;
-    cout << "+-----------------------------------------------+" << endl;
+    cout << "\n+------------------------------------------------------------------+" << endl;
+    cout << "|                    RELATORIO FINAL DE VENDAS                     |" << endl;
+    cout << "+------------------------------------------------------------------+" << endl;
 
     for (const auto &item : itens){
         int quantidade = contagem[item.id];
         float total = quantidade * item.valor;
         if (quantidade > 0){
-            cout << "\tNome: "<<item.nome << "\tValor: R$" << item.valor << "\tQtd: " << quantidade << "\tValor total: R$ " << total << endl;
+            cout << "Nome: "<<item.nome << "\tValor: R$" << item.valor << "\tQtd: " << quantidade << "\tValor total: R$ " << total << endl;
         }
     }
+
+    cout << "\n========| MESAS |========="<< endl;
+    for(const auto &mesa : mesas){
+        cout <<"MESA " << mesa.id<< "\tValor total: R$" << mesa.valorTotalMesa() << endl;
+    }
+
     cout << "\nTOTAL GERAL VENDIDO: R$ " << totalGeral  << endl;
 }
 
@@ -147,7 +155,7 @@ int main(){
                             int idItem;
                             cout << "Digite o ID do item que deseja adicionar ao pedido (0 para finalizar):" << endl;
                             while (true){
-                                idItem = lerNumIntervalo(1, 9);
+                                idItem = lerNumIntervalo(0, 9);
 
                                 if (idItem == 0){
                                     if (!pedidoNovo.itens.empty()){
@@ -185,11 +193,11 @@ int main(){
                     }
                     case 3:{ // 3 - encerrar os pedidos da mesa
                         if (mesas[idMesa].status){
+                            cout << "Fechando mesa " << (idMesa+1) << " | Total: R$" << mesas[idMesa].valorTotalMesa() << endl;
                             mesas[idMesa].encerrarMesa();
-                            cout << "Mesa " << idMesa << " encerrada!" << endl;
                         }
                         else{
-                            cout << "Mesa " << idMesa << " ja esta encerrada." << endl;
+                            cout << "A mesa " << (idMesa+1) << " ja esta fechada." << endl;
                         }
                         break;
                     }
@@ -208,6 +216,7 @@ int main(){
                     cout << "Mesa " << i + 1 << ":" << endl;
                     if (!mesas[i].pedidos.empty()){
                         mesas[i].descricao();
+                        cout << endl;
                     }
                     else{
                         cout << "Nao ha pedidos na mesa." << endl;
