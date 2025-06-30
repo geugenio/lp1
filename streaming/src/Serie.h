@@ -4,10 +4,15 @@
 
 using namespace std;
 
-class Filme : public Conteudo{
+class Serie : public Conteudo{
     private:
-        string diretor;
-        string elenco;
         int episodiosTotais;
         int temporadas;
+    public:
+        Serie();
+        Serie(int id, string titulo, string sinopse, string diretor, vector<string> elenco, 
+              string genero, string subgenero, int anoLancamento, string classificacao, 
+              float duracao, int episodiosTotais, int temporadas);
+        void exibir() const override;
+        Serie *buscarConteudoId(int id) const override;
 };

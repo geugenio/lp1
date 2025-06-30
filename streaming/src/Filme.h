@@ -15,5 +15,4 @@ class Filme : public Conteudo{
         void exibir() const override;
         string getPremiacoes() const;
         void setPremiacoes(string premiacoes);
-        Filme *buscarConteudoId(int id) const override;
 };

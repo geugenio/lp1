@@ -7,13 +7,15 @@
 
 class Playlist{
     private:
+    static int proxId;
         int id;
         string nome;
         User* criador;
         vector<Conteudo*> conteudos;
     public:
-        void adicionarConteudo(Conteudo* conteudo);
-        void removerConteudo(int id);
         Playlist();
-        Playlist(string nome);
+        Playlist(string nome, User* criador);
+        void adicionarConteudo(Conteudo* conteudo);
+        void removerConteudo(Conteudo* conteudo);
+
 };
