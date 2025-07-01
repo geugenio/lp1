@@ -1,6 +1,7 @@
 #include "Conteudo.h"
 
-Conteudo::Conteudo(int id, string titulo, string sinopse, string diretor, vector<string> elenco, string genero, string subgenero, int anoLançamento, string classificacao, float duracao){
+Conteudo::Conteudo(int id, string titulo, string sinopse, string diretor, vector<string> elenco, string genero, 
+    string subgenero, int anoLançamento, string classificacao, float duracao){
     this->id = id;
     this->titulo = titulo;
     this->sinopse = sinopse;

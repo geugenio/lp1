@@ -26,4 +26,6 @@ class Conteudo{
         virtual ~Conteudo() = default;
         // Métodos
         virtual void exibir() const;
+
+        //Getters e Setters
 };
