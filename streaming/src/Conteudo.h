@@ -23,6 +23,8 @@ class Conteudo{
         Conteudo(int id, string titulo, string sinopse, string diretor, vector<string> elenco, 
             string genero, string subgenero, int anoLançamento, string classificacao, float duracao);
         Conteudo();
+
+        //Destrutor default
         virtual ~Conteudo() = default;
         // Métodos
         virtual void exibir() const;
